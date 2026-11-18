@@ -1,0 +1,50 @@
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    public List<Integer> spiralOrder(int[][] matrix) {
+        List<Integer> result = new ArrayList<>();
+        
+        // 1. Define the 4 boundaries
+        int top = 0;
+        int bottom = matrix.length - 1;
+        int left = 0;
+        int right = matrix[0].length - 1;
+
+        // 2. Loop until the boundaries cross each other
+        while (top <= bottom && left <= right) {
+            
+            // Step A: Traverse Left to Right along the top row
+            for (int i = left; i <= right; i++) {
+                result.add(matrix[top][i]);
+            }
+            top++; // Top row is done, move boundary down
+
+            // Step B: Traverse Top to Bottom along the right column
+            for (int i = top; i <= bottom; i++) {
+                result.add(matrix[i][right]);
+            }
+            right--; // Right column is done, move boundary left
+
+            // Step C: Traverse Right to Left along the bottom row
+            // (Check if top <= bottom to avoid duplicates on single-row matrices)
+            if (top <= bottom) {
+                for (int i = right; i >= left; i--) {
+                    result.add(matrix[bottom][i]);
+                }
+                bottom--; // Bottom row is done, move boundary up
+            }
+
+            // Step D: Traverse Bottom to Top along the left column
+            // (Check if left <= right to avoid duplicates on single-column matrices)
+            if (left <= right) {
+                for (int i = bottom; i >= top; i--) {
+                    result.add(matrix[i][left]);
+                }
+                left++; // Left column is done, move boundary right
+            }
+        }
+
+        return result;
+    }
+}3
